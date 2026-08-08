@@ -158,10 +158,15 @@ below are **implemented** and normative.
   keys, with the last one un-removable), and mints/lists/revokes registration invites
   at **`/admin/invites`** — the editor equivalent of the bootstrap CLI.
   *Community Members* MAY register several; if they don't, invite-gated re-entry
-  and the inactivity auto-purge are the fallback. Attestation is **role-dependent**:
-  `attestation: "none"` for Community Members (no AAGUID fingerprint), while
-  admin/moderator enrolment MAY request attestation to enforce a hardware-key
-  allowlist (operator-controlled accounts, so the AAGUID exposure is acceptable).
+  and the inactivity auto-purge are the fallback. `attestation: "none"` is requested for **every role** (Community Members,
+  moderators, and creators) — no AAGUID/device-model fingerprint is ever collected.
+  Role-dependent hardware-key attestation (an AAGUID allowlist for admin/moderator
+  enrolment) was **considered and declined**: invite-gating, the ≥2-key rule, and the
+  network-restricted admin origin already gate elevated enrolment, so attestation
+  would add device-model lock-in and trust-anchor machinery with no matching security
+  gain. Signature verification accepts **ES256 (ECDSA P-256) and EdDSA (Ed25519)**
+  only — modern elliptic-curve algorithms every current authenticator provides; RSA
+  (RS256) is **deliberately not implemented**.
   Multiple credentials on one account are linked to each other by the shared user
   handle — the same account, so cross-account unlinkability is untouched. Enforce
   the signature counter for single-device keys (clone detection); tolerate a
@@ -172,8 +177,9 @@ below are **implemented** and normative.
   on **both** origins, so a signed-in visitor is not re-authenticated per page
   load. `HttpOnly` keeps the id out of script's reach (XSS cannot exfiltrate it);
   `SameSite=Strict` closes most CSRF, with a double-submit / custom-header token on
-  state-changing POSTs for defense in depth; short TTL with a cheap WebAuthn re-tap
-  on expiry rather than a long-lived refresh token. This is a **strictly-necessary**
+  state-changing POSTs for defense in depth; a short, **fixed** TTL with a cheap WebAuthn
+  re-tap on expiry — deliberately no sliding renewal or long-lived refresh token (the
+  re-tap is one gesture, and creator drafts persist server-side, so nothing is lost). This is a **strictly-necessary**
   cookie — first-party, opaque, never a tracking identifier, and **consent-exempt**
   (no banner; disclosed in the privacy policy). Mechanism vs. compliance reasoning:
   `docs/SESSION-COOKIES-STORAGE.md`. A `sessionStorage` bearer token is used only
