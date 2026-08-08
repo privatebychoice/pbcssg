@@ -30,3 +30,19 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+
+# macOS
+.DS_Store
+
+# Built pbcssg binary — root-anchored so it never matches the cmd/pbcssg/ source dir
+/pbcssg
+
+# Local run artifacts (created when running pbcssg inside a checkout):
+# the SQLite content DB, its sibling media dir, and the default build/release dirs.
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+/media/
+/site/
+/releases/
