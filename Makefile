@@ -1,4 +1,4 @@
-# Makefile — local quality gate. Requires Go 1.26+.
+# Makefile — local quality gate. Requires Go 1.27+.
 #
 # Run `make check` before pushing. Targets that need a Go module no-op cleanly in
 # a repo that doesn't have one yet (e.g. a docs-only repo), so the same Makefile

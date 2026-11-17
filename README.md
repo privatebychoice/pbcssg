@@ -19,7 +19,7 @@ Control (GPC) is supported out of the box.
 
 ## Requirements
 
-- **Go 1.26+** (pure Go; no cgo, single cross-compiled binary).
+- **Go 1.27+** (pure Go; no cgo, single cross-compiled binary).
 - No system libraries. SQLite is the pure-Go `modernc.org/sqlite` driver.
 
 `pbcssg` depends on two sibling modules published under a vanity import path, so

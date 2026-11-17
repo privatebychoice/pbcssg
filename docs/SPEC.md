@@ -1114,7 +1114,7 @@ byte-identically. Rekey is an explicit, intended input change.
   messages. Mode B: the AES key becomes `PBKDF2(password = code, salt = revealKey
   ‖ block_index, high-iteration, SHA-256)` — the code is required to reconstruct
   it, and `revealKey` serves only as a public per-page salt. **PBKDF2 is the
-  default** because Web Crypto supports it natively and Go 1.26 ships
+  default** because Web Crypto supports it natively and Go 1.27 ships
   `crypto/pbkdf2` + `crypto/hkdf` in the **standard library** (added in 1.24), so
   build side and client side run the same KDF with no third-party front-end
   resource and no CSP relaxation. Argon2id would be memory-hard but needs a
@@ -2074,7 +2074,7 @@ Core-first; each vetted before use.
 - Stdlib for everything else: `net/http`, `html/template`, `database/sql`,
   `crypto/sha256`, `encoding/json`, `image/*`, `encoding/xml`.
 
-Target Go **1.26.x**. Creator mode runs on any desktop OS (pure-Go, no cgo);
+Target Go **1.27.x**. Creator mode runs on any desktop OS (pure-Go, no cgo);
 server mode targets Linux.
 
 ---
